@@ -176,7 +176,7 @@ def make_chart(df: pd.DataFrame, symbol: str, inds: list, h=350):
     # VWAPバンド20日
     if "VWAP Band 20" in inds:
         # VWAP中心線
-        fig.add_trace(go.Scatter(x=df.index, y=df["VWAP20"], line=dict(width=2, color="#ff9800"), name="VWAP20"), row=1, col=1)
+        fig.add_trace(go.Scatter(x=df.index, y=df["VWAP20"], line=dict(width=1, color="#ff9800"), name="VWAP20"), row=1, col=1)
 
         # 2σバンド（外側）- 濃いオレンジ色の実線
         fig.add_trace(go.Scatter(x=df.index, y=df["VWAP20_upper_2s"], line=dict(width=1, color="#e65100"), name="VWAP20 +2σ", hoverinfo="skip"), row=1, col=1)
@@ -189,7 +189,7 @@ def make_chart(df: pd.DataFrame, symbol: str, inds: list, h=350):
     # VWAPバンド40日
     if "VWAP Band 40" in inds:
         # VWAP中心線
-        fig.add_trace(go.Scatter(x=df.index, y=df["VWAP40"], line=dict(width=2, color="#9c27b0"), name="VWAP40"), row=1, col=1)
+        fig.add_trace(go.Scatter(x=df.index, y=df["VWAP40"], line=dict(width=1, color="#9c27b0"), name="VWAP40"), row=1, col=1)
 
         # 2σバンド（外側）- 濃い紫色の実線
         fig.add_trace(go.Scatter(x=df.index, y=df["VWAP40_upper_2s"], line=dict(width=1, color="#4a148c"), name="VWAP40 +2σ", hoverinfo="skip"), row=1, col=1)
@@ -242,4 +242,5 @@ for idx, symbol in enumerate(tickers):
         st.caption(symbol)
         # --- ★keyを追加してエラー回避 ---
         st.plotly_chart(fig, use_container_width=True, config=plot_cfg, key=f"chart_{symbol}_{idx}")
+
 
