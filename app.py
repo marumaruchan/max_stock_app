@@ -178,27 +178,29 @@ def make_chart(df: pd.DataFrame, symbol: str, inds: list, h=350):
         # VWAP中心線
         fig.add_trace(go.Scatter(x=df.index, y=df["VWAP20"], line=dict(width=2, color="#ff9800"), name="VWAP20"), row=1, col=1)
 
-        # 2σバンド（外側）
-        fig.add_trace(go.Scatter(x=df.index, y=df["VWAP20_upper_2s"], line=dict(width=1, color="#ff9800", dash="dash"), name="VWAP20 +2σ", hoverinfo="skip"), row=1, col=1)
-        fig.add_trace(go.Scatter(x=df.index, y=df["VWAP20_lower_2s"], line=dict(width=1, color="#ff9800", dash="dash"), name="VWAP20 -2σ", hoverinfo="skip"), row=1, col=1)
+        # 2σバンド（外側）- 濃いオレンジ色の実線
+        fig.add_trace(go.Scatter(x=df.index, y=df["VWAP20_upper_2s"], line=dict(width=1, color="#e65100"), name="VWAP20 +2σ", hoverinfo="skip"), row=1, col=1)
+        fig.add_trace(go.Scatter(x=df.index, y=df["VWAP20_lower_2s"], line=dict(width=1, color="#e65100"), name="VWAP20 -2σ", hoverinfo="skip"), row=1, col=1)
 
-        # 1σバンド（内側）
-        fig.add_trace(go.Scatter(x=df.index, y=df["VWAP20_upper_1s"], line=dict(width=1, color="#ff9800", dash="dot"), name="VWAP20 +1σ", hoverinfo="skip"), row=1, col=1)
-        fig.add_trace(go.Scatter(x=df.index, y=df["VWAP20_lower_1s"], line=dict(width=1, color="#ff9800", dash="dot"), name="VWAP20 -1σ", fill='tonexty', fillcolor="rgba(255,152,0,0.1)", hoverinfo="skip"), row=1, col=1)
+        # 1σバンド（内側）- 薄いオレンジ色の実線
+        fig.add_trace(go.Scatter(x=df.index, y=df["VWAP20_upper_1s"], line=dict(width=1, color="#ffb74d"), name="VWAP20 +1σ", hoverinfo="skip"), row=1, col=1)
+        fig.add_trace(go.Scatter(x=df.index, y=df["VWAP20_lower_1s"], line=dict(width=1, color="#ffb74d"), name="VWAP20 -1σ", fill='tonexty', fillcolor="rgba(255,183,77,0.1)", hoverinfo="skip"), row=1, col=1)
 
     # VWAPバンド40日
     if "VWAP Band 40" in inds:
         # VWAP中心線
         fig.add_trace(go.Scatter(x=df.index, y=df["VWAP40"], line=dict(width=2, color="#9c27b0"), name="VWAP40"), row=1, col=1)
 
-        # 2σバンド（外側）
-        fig.add_trace(go.Scatter(x=df.index, y=df["VWAP40_upper_2s"], line=dict(width=1, color="#9c27b0", dash="dash"), name="VWAP40 +2σ", hoverinfo="skip"), row=1, col=1)
-        fig.add_trace(go.Scatter(x=df.index, y=df["VWAP40_lower_2s"], line=dict(width=1, color="#9c27b0", dash="dash"), name="VWAP40 -2σ", hoverinfo="skip"), row=1, col=1)
+        # 2σバンド（外側）- 濃い紫色の実線
+        fig.add_trace(go.Scatter(x=df.index, y=df["VWAP40_upper_2s"], line=dict(width=1, color="#4a148c"), name="VWAP40 +2σ", hoverinfo="skip"), row=1, col=1)
+        fig.add_trace(go.Scatter(x=df.index, y=df["VWAP40_lower_2s"], line=dict(width=1, color="#4a148c"), name="VWAP40 -2σ", hoverinfo="skip"), row=1, col=1)
 
-        # 1σバンド（内側）
-        fig.add_trace(go.Scatter(x=df.index, y=df["VWAP40_upper_1s"], line=dict(width=1, color="#9c27b0", dash="dot"), name="VWAP40 +1σ", hoverinfo="skip"), row=1, col=1)
-        fig.add_trace(go.Scatter(x=df.index, y=df["VWAP40_lower_1s"], line=dict(width=1, color="#9c27b0", dash="dot"), name="VWAP40 -1σ", fill='tonexty', fillcolor="rgba(156,39,176,0.1)", hoverinfo="skip"), row=1, col=1)
+        # 1σバンド（内側）- 薄い紫色の実線
+        fig.add_trace(go.Scatter(x=df.index, y=df["VWAP40_upper_1s"], line=dict(width=1, color="#ba68c8"), name="VWAP40 +1σ", hoverinfo="skip"), row=1, col=1)
+        fig.add_trace(go.Scatter(x=df.index, y=df["VWAP40_lower_1s"], line=dict(width=1, color="#ba68c8"), name="VWAP40 -1σ", fill='tonexty', fillcolor="rgba(186,104,200,0.1)", hoverinfo="skip"), row=1, col=1)
 
+
+    
     # 出来高
     vol_colors = ["#26a69a" if o < c else "#ef5350" for o, c in zip(df["Open"], df["Close"])]
     fig.add_trace(go.Bar(x=df.index, y=df["Volume"], marker_color=vol_colors, opacity=0.5, name="Volume"), row=2, col=1)
@@ -240,3 +242,4 @@ for idx, symbol in enumerate(tickers):
         st.caption(symbol)
         # --- ★keyを追加してエラー回避 ---
         st.plotly_chart(fig, use_container_width=True, config=plot_cfg, key=f"chart_{symbol}_{idx}")
+
